@@ -1,46 +1,32 @@
 package FunctionalTests;
-
+import com.pack.base.BaseIntegration;
+import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.fluentlenium.core.annotation.Page;
 import pages.LoginPage;
-
-//import org.openqa.selenium.support.PageFactoryFinder;
-
-
-public class LoginTests{
-
-public WebDriver driver;
+import com.pack.base.Application;
 
 
-    //public FirefoxDriver driver;
+public class LoginTests extends BaseIntegration{
+
+    private LoginPage gLoginPage;
+
+    //@Page LoginPage loginPage;
+
+    @Before
+    public void setup(){
+        app = new Application();
+    }
 
     @Test
-        public void firefoxTest() throws Exception{
+        public void loginToGmailTest(){
+        app.setUsername("username");
+        app.setPassword("tester");
+        gLoginPage = createPage(LoginPage.class);
+        gLoginPage.go();
+        //gLoginPage.isAt();
+        gLoginPage.LoginToGmail(app);
 
-        System.setProperty("webdriver.gecko.driver", "C:\\repos\\Tools\\geckodriver.exe");
-        FirefoxOptions options = new FirefoxOptions();
-        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-//        "C:\\Program Files\\Firefox Developer Edition\\firefox.exe"
-        FirefoxDriver driver = new FirefoxDriver(options);
-
-
-            driver.navigate().to("https://accounts.google.com/");
-
-
-            //driver.findElement(By.id("identifierId")).sendKeys("username");
-            //driver.findElement(By.id("identifierNext")).click();
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //Thread.sleep(5000);
-           // driver.findElement(By.name("password")).sendKeys("password");
-            //driver.findElement(By.id("passwordNext")).click();
-
-            LoginPage.LoginToSite();
-
-
-            driver.close();
-        Thread.sleep(5000);
-            driver.quit();
     }
 }
+
